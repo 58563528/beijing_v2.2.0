@@ -1,6 +1,6 @@
 FROM node:lts-alpine
 LABEL maintainer="jizhuni"
-ARG QL_URL=https://github.com/58563528/beijing.git
+ARG QL_URL=https://github.com/58563528/beijing_v2.2.0.git
 ARG QL_BRANCH=v2.2.0
 ENV PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin \
     LANG=zh_CN.UTF-8 \
@@ -29,7 +29,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
     && echo "Asia/Shanghai" > /etc/timezone \
     && touch ~/.bashrc \
     && mkdir /run/nginx \
-    && git clone -b ${QL_BRANCH} https://github.com/58563528/beijing_static.git /static \
+    && git clone -b ${QL_BRANCH} https://github.com/58563528/beijing_static_v2.2.0.git /static \
     && git clone -b ${QL_BRANCH} ${QL_URL} ${QL_DIR} \
     && git config --global user.email "jizhuni@126.com" \
     && git config --global user.name "58563528" \

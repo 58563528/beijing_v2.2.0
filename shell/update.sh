@@ -171,10 +171,10 @@ update_repo() {
     [[ $branch ]] && repo_path="${repo_path}_${branch}"
 
     if [ -d ${repo_path}/.git ]; then
-        reset_romote_url ${repo_path} "${github_proxy_url}${url/https:\/\/ghproxy.com\//}" "v2.2.0"
-        git_pull_scripts ${repo_path} "v2.2.0"
+        reset_romote_url ${repo_path} "${github_proxy_url}${url/https:\/\/ghproxy.com\//}" "${branch}"
+        git_pull_scripts ${repo_path} "${branch}"
     else
-        git_clone_scripts ${url} ${repo_path} "v2.2.0"
+        git_clone_scripts ${url} ${repo_path} "${branch}"
     fi
     if [[ $exit_status -eq 0 ]]; then
         echo -e "\n更新${repo_path}成功...\n"
@@ -256,8 +256,8 @@ update_qinglong() {
     local no_restart="$1"
     echo -e "--------------------------------------------------------------\n"
     [ -f $dir_root/package.json ] && ql_depend_old=$(cat $dir_root/package.json)
-    reset_romote_url ${dir_root} "${github_proxy_url}https://github.com/58563528/beijing.git"
-    git_pull_scripts $dir_root "v2.2.0"
+    reset_romote_url ${dir_root} "${github_proxy_url}https://github.com/58563528/beijing_v2.2.0.git"
+    git_pull_scripts $dir_root
 
     if [[ $exit_status -eq 0 ]]; then
         echo -e "\n更新$dir_root成功...\n"
@@ -271,14 +271,14 @@ update_qinglong() {
         echo -e "\n更新$dir_root失败，请检查原因...\n"
     fi
 
-    local url="${github_proxy_url}https://github.com/58563528/beijing_static.git"
+    local url="${github_proxy_url}https://github.com/58563528/beijing_static_v2.2.0.git"
     if [ -d ${ql_static_repo}/.git ]; then
         echo -e "1111...\n"
-        reset_romote_url ${ql_static_repo} ${url} "v2.2.0"
+        reset_romote_url ${ql_static_repo} ${url}
         cd ${ql_static_repo}
         git fetch --all
         exit_status=$?
-        git reset --hard origin/v2.2.0
+        git reset --hard origin/master
         cd $dir_root
     else
 	echo -e "2222...\n"
